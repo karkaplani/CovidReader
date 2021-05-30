@@ -14,16 +14,9 @@ const csv = require('csv-parser');
 
 const express = require('express'); 
 const app = express();
-const exphbs = require('express-handlebars'); //To communicate with HTML files
 
 var records = new Array; 
 var recordsToDisplay = new Array;
-
-//Basic setup of the handlebars library. Can be found on its own documentation.
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
-app.set('view engine', 'handlebars');
-
-app.use(express.static(__dirname + '/public'));
 
 fs.createReadStream('covid19.csv') 
     .on('error', function(err) { console.log('covid19.csv file is missing!'); }) //Error handling in case of the file's missing
@@ -46,12 +39,11 @@ fs.createReadStream('covid19.csv')
         }
         
     });
-//Using the handlebars library. Records array will be recognized by index.html file 
-//in Views folder, so that the objects can be used to pass the data to the HTML page 
-app.get('/', (req, res) => res.render('index', {
-    title: 'Covid Records',
-    recordsToDisplay
-}));
+
+app.get('/api/records', (req, res) => {
+    
+    res.json(recordsToDisplay)
+})
 
 //Default port is 5000, and if the server doesn't start on 5000, logs which port it started
 const PORT = process.env.PORT || 5000;

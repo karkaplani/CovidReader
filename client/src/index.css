@@ -1,0 +1,103 @@
+body {
+  background-color: #cfe0e8
+} 
+
+h1 {
+  font-size: 32px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin-left: 25px;
+}
+
+button {
+  height: 8%;
+  width: 8%;
+  margin-bottom: 5px;
+  margin-left: 50%;
+  margin-right: 50%;
+  background-color: #87bdd8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: gray;
+}
+
+@media (min-width: 600px) {
+
+  h1 {
+    display: inline-block;
+  }
+  button {
+    margin-left: 1%;
+  }
+}
+
+.container {
+  width: 67%;
+  margin: auto;
+  margin-top: 70px;
+  overflow: auto; 
+  box-shadow: 0 0 10px 10px gray;
+  border-radius: 15px;
+  height: 500px;
+}
+
+.record-table {
+  width: 95%;
+  margin: auto;
+}
+
+.record-table th {
+  text-align: left;
+  font-size: 16px;
+  padding-top: 2%;
+  padding-bottom: 2%; 
+  background-color: #87bdd8;  
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* position: sticky; */
+  top: 0;
+}
+
+.record-table td {
+  padding-top: 1%;
+  padding-bottom: 1%;  
+  font-size: 14px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.record-table tr:nth-child(even) {
+  background-color: #b7d7e8;
+}
+
+.record-table tr:nth-child(odd) {
+  background-color: #cfe0e8
+}
+
+.record-table tr:hover {background-color: #87bdd8; }
+
+.menu {
+  height: 50px;
+  width: 80px;
+  background-color: black;
+}
+
+footer {
+  margin-top: 50px;
+  margin-left: 16%;
+  text-align: left;
+}
+
+.ReactModal__Overlay {
+  opacity: 0;
+  transition: opacity 2000ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+  opacity: 1;
+}
+
+.ReactModal__Overlay--before-close{
+  opacity: 0;
+}
+
