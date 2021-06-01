@@ -6,6 +6,7 @@
 module.exports = class CovidRecord {
 
     constructor(
+        id,
         pruid,
         prname,
         prnameFR,
@@ -16,6 +17,7 @@ module.exports = class CovidRecord {
         numtotal,
         numtoday,
     ) {
+        this.id = id;
         this.pruid = pruid;
         this.prname = prname;
         this.prnameFR = prnameFR;
@@ -34,7 +36,8 @@ module.exports = class CovidRecord {
      */
     displayValues() {
 
-        var result = "\nPruID: " + this.pruid + 
+        var result = "\nID: " + this.id + 
+                     "\nPruID: " + this.pruid + 
                      "\nPrName: " + this.prname + 
                      "\nPrNameFr: " + this.prnameFR + 
                      "\nDate: " + this.date + 
@@ -42,7 +45,7 @@ module.exports = class CovidRecord {
                      "\nNumProb: " + this.numprob +
                      "\nNumDeaths: " + this.numdeaths +
                      "\nNumTotal: " + this.numtotal + 
-                     "\nNumToday: " + this.numtoday;
+                     "\nNumToday: " + this.numtoday 
 
         console.log(result); 
     }

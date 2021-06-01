@@ -5,7 +5,7 @@ const Row = ({record, onEdit}) => {
         <tr onClick={() => {onEdit(record.id)}}>
             <td>{record.pruid}</td>
             <td>{record.prname}</td>
-            <td>{record.prnamefr}</td>
+            <td>{record.prnameFR}</td>
             <td>{record.date}</td>
             <td>{record.numconf}</td>
             <td>{record.numprob}</td>

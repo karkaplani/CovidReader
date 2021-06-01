@@ -23,7 +23,7 @@ fs.createReadStream('covid19.csv')
     .pipe(csv())
     .on('data', (row) => {
         //Storing the data in an object
-       var record = new Recorder(row.pruid, row.prname, row.prnameFR,
+       var record = new Recorder(row.id, row.pruid, row.prname, row.prnameFR,
             row.date, row.numconf, row.numprob, 
             row.numdeaths, row.numtotal, row.numtoday);
 
@@ -35,14 +35,58 @@ fs.createReadStream('covid19.csv')
         //the objects seem empty otherwise. 
         for(let i = 0; i <= 10; i++) {
             recordsToDisplay.push(records[i]);
+            recordsToDisplay[i].id = i; //Given id to each record
             recordsToDisplay[i].displayValues();
         }
         
     });
 
+//Getting all the records
 app.get('/api/records', (req, res) => {
-    
     res.json(recordsToDisplay)
+})
+
+//Getting a specific record by id
+app.get('/api/records/:id', (req, res) => {
+    res.json(recordsToDisplay.filter(record => record.id === parseInt(req.params.id)))
+}) 
+
+//Body parder middleware
+app.use(express.json())
+app.use(express.urlencoded({extended: false}))
+
+//Adding a record
+app.post('/api/records', (req, res) => {
+
+    const newRecord = new Recorder(req.body.id, req.body.pruid, req.body.prname, req.body.prnameFR, req.body.date, 
+                                   req.body.numconf, req.body.numprob, req.body.numdeaths, req.body.numtotal, req.body.numtoday)
+    recordsToDisplay.push(newRecord)
+    res.json(recordsToDisplay)
+})
+
+//Updating a record
+app.put('/api/records/:id', (req, res) => {
+    const updatedRecord = req.body
+    recordsToDisplay.forEach(record => {
+        if(record.id === parseInt(req.params.id)) {
+            record.pruid = updatedRecord.pruid ? updatedRecord.pruid : record.pruid
+            record.prname  = updatedRecord.prname ? updatedRecord.prname : record.prname
+            record.prnameFR  = updatedRecord.prnameFR ? updatedRecord.prnameFR : record.prnameFR
+            record.date  = updatedRecord.date ? updatedRecord.date : record.date
+            record.numconf  = updatedRecord.numconf ? updatedRecord.numconf : record.numconf
+            record.numprob  = updatedRecord.numprob ? updatedRecord.numprob : record.numprob
+            record.numdeaths  = updatedRecord.numdeaths ? updatedRecord.numdeaths : record.numdeaths
+            record.numtotal  = updatedRecord.numtotal ? updatedRecord.numtotal : record.numtotal
+            record.numtoday  = updatedRecord.numtoday ? updatedRecord.numtoday : record.numtoday
+
+            res.json({msg: "Record updated", record})
+        }
+    })
+})
+
+//Deleting a record
+app.delete('/api/records/:id', (req, res) => {
+    res.json(recordsToDisplay.filter(record => record.id !== parseInt(req.params.id)))
 })
 
 //Default port is 5000, and if the server doesn't start on 5000, logs which port it started
