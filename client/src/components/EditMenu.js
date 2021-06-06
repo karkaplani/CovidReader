@@ -35,7 +35,7 @@ const EditMenu = ({editMenuIsOpen, records, rowIndex, deleteRecord, getData}) =>
               <tr>
                 <td id='pruid' contentEditable='true'> { records.find(record => record.id === rowIndex).pruid } </td>
                 <td class='prname' contentEditable='true'> { records.find(record => record.id === rowIndex).prname } </td>
-                <td class='prnamefr'  contentEditable='true'> { records.find(record => record.id === rowIndex).prnamefr } </td>
+                <td class='prnamefr'  contentEditable='true'> { records.find(record => record.id === rowIndex).prnameFR } </td>
                 <td class='date' contentEditable='true'> { records.find(record => record.id === rowIndex).date } </td>
                 <td class='numconf' contentEditable='true'> { records.find(record => record.id === rowIndex).numconf } </td>
                 <td class='numprob' contentEditable='true'> { records.find(record => record.id === rowIndex).numprob } </td>

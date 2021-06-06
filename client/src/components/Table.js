@@ -14,7 +14,7 @@ const Table = ({records, onEdit}) => {
                 <th>NumTotal</th>
                 <th>NumToday</th>
               </tr>
-
+            
             {records.map((record) => (<Row key={record.id} record={record} onEdit={onEdit} />))}
         </table>
     )

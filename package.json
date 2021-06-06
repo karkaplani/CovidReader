@@ -4,7 +4,7 @@
   "description": "",
   "main": "CovidReader.js",
   "scripts": {
-    "dev": "nodemon index", 
+    "dev": "nodemon index",
     "client": "cd client && npm start",
     "start": "concurrently \"npm run dev\" \"npm run client\""
   },
@@ -12,8 +12,10 @@
   "author": "Apo Ilgun",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "concurrently": "^6.2.0",
     "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
     "express": "^4.17.1"
   },
   "devDependencies": {

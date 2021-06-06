@@ -41,15 +41,6 @@ fs.createReadStream('covid19.csv')
         
     });
 
-//Getting all the records
-app.get('/api/records', (req, res) => {
-    res.json(recordsToDisplay)
-})
-
-//Getting a specific record by id
-app.get('/api/records/:id', (req, res) => {
-    res.json(recordsToDisplay.filter(record => record.id === parseInt(req.params.id)))
-}) 
 
 //Body parder middleware
 app.use(express.json())
@@ -79,14 +70,25 @@ app.put('/api/records/:id', (req, res) => {
             record.numtotal  = updatedRecord.numtotal ? updatedRecord.numtotal : record.numtotal
             record.numtoday  = updatedRecord.numtoday ? updatedRecord.numtoday : record.numtoday
 
-            res.json({msg: "Record updated", record})
+            res.json(recordsToDisplay)
         }
     })
 })
 
 //Deleting a record
 app.delete('/api/records/:id', (req, res) => {
-    res.json(recordsToDisplay.filter(record => record.id !== parseInt(req.params.id)))
+    recordsToDisplay = recordsToDisplay.filter(record => record.id !== parseInt(req.params.id))
+    res.json(recordsToDisplay)
+})
+
+//Getting a specific record by id
+app.get('/api/records/:id', (req, res) => {
+    res.json(recordsToDisplay.filter(record => record.id === parseInt(req.params.id)))
+}) 
+
+//Getting all the records
+app.get('/api/records', (req, res) => {
+    res.json(recordsToDisplay)
 })
 
 //Default port is 5000, and if the server doesn't start on 5000, logs which port it started

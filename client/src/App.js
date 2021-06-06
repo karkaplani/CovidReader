@@ -1,4 +1,3 @@
-import React from 'react'
 import Box from './components/Box'
 import { useState, useEffect } from 'react'
 import AddForm from './components/AddForm'
@@ -10,36 +9,69 @@ const App = () => {
   const [rowIndex, setRowIndex] = useState(0)
   const [records, setRecords] = useState([])
 
-  useEffect(() => {
+  useEffect(() => { 
     fetch('/api/records').then(res => {
       if(res.ok) {
         return res.json()
       }
-    }).then(jsonResponse => setRecords(jsonResponse))
+    }).then(jsonResponse => {
+      setRecords(jsonResponse)
+    })
   }, [])
 
-  const deleteRecord = (id) => {
+  const deleteRecord = (id) => { 
+
     setEditMenuIsOpen(!editMenuIsOpen)
-    setRecords(records.filter((record) => record.id !== id)) //Only shows the records that ain't selected
-    console.log(id)
+
+    fetch(`/api/records/${id}`, {
+      method: 'DELETE',
+      //headers: { 'Content-Type': 'application/json' },
+      //body: records
+    }).then(res => {
+      return res.json()
+
+    }).then(jsonResponse => {
+      console.log(jsonResponse)
+      setRecords(jsonResponse)
+    })
   }
 
-  const openEditMenu = (number) => {
-    setRowIndex(number)
-    setEditMenuIsOpen(!editMenuIsOpen)
-    console.log(rowIndex)
-  }
+  const addRow = (data) => {  
 
-  const addRow = (data) => {
-    records.push(data)
-    setRecords(records)
     setMenuIsOpen(!menuIsOpen)
+
+    fetch('/api/records', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(res=> {
+      return res.json()
+
+    }).then(jsonResponse => {
+      setRecords(jsonResponse)
+    })
+  }
+
+  const updateRow = (id, data) => {
+    
+    setEditMenuIsOpen(!editMenuIsOpen)
+
+    fetch(`/api/records/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    }).then(res=> {
+      return res.json()
+
+    }).then(jsonResponse=> {
+      setRecords(jsonResponse)
+    })
   }
 
   const getData = (rowIndex) => {
     var table = document.getElementById('table')
     var objCells = table.rows.item(1).cells
-    records[rowIndex] = {
+    const data = {
       id: rowIndex,
       pruid: objCells.item(0).innerHTML,
       prname: objCells.item(1).innerHTML,
@@ -51,9 +83,13 @@ const App = () => {
       numtotal: objCells.item(7).innerHTML,
       numtoday: objCells.item(8).innerHTML,
     }
-    setRecords(records)
+    updateRow(rowIndex, data)
+  }
+
+  const openEditMenu = (number) => {
+    setRowIndex(number)
     setEditMenuIsOpen(!editMenuIsOpen)
-    console.log(objCells)
+    console.log(rowIndex)
   }
  
   return (
@@ -63,8 +99,9 @@ const App = () => {
         <Box records={records} onEdit={openEditMenu}/>
         
         <AddForm menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} addRow={addRow} />
-       { editMenuIsOpen && <EditMenu 
-          
+
+        {editMenuIsOpen && 
+        <EditMenu 
           editMenuIsOpen={editMenuIsOpen}
           records={records}
           rowIndex={rowIndex}
