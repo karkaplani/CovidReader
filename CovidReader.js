@@ -5,7 +5,7 @@
  * on the browser using Express framework.
  */
 
-//Imports
+//Imports 
 const Recorder = require('./CovidRecord'); //DTO
 
 //Basic libraries in NPM package
@@ -16,7 +16,7 @@ const express = require('express');
 const app = express();
 
 var records = new Array; 
-var recordsToDisplay = new Array;
+var recordsToDisplay = require('./RecordsToDisplay')
 
 fs.createReadStream('covid19.csv') 
     .on('error', function(err) { console.log('covid19.csv file is missing!'); }) //Error handling in case of the file's missing
@@ -36,60 +36,16 @@ fs.createReadStream('covid19.csv')
         for(let i = 0; i <= 10; i++) {
             recordsToDisplay.push(records[i]);
             recordsToDisplay[i].id = i; //Given id to each record
-            recordsToDisplay[i].displayValues();
+            //recordsToDisplay[i].displayValues();
         }
-        
+        app.use('/api/records', require('./routes/api/records'))
+        module.exports = {recordsToDisplay: recordsToDisplay}
     });
 
 
 //Body parder middleware
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-
-//Adding a record
-app.post('/api/records', (req, res) => {
-
-    const newRecord = new Recorder(req.body.id, req.body.pruid, req.body.prname, req.body.prnameFR, req.body.date, 
-                                   req.body.numconf, req.body.numprob, req.body.numdeaths, req.body.numtotal, req.body.numtoday)
-    recordsToDisplay.push(newRecord)
-    res.json(recordsToDisplay)
-})
-
-//Updating a record
-app.put('/api/records/:id', (req, res) => {
-    const updatedRecord = req.body
-    recordsToDisplay.forEach(record => {
-        if(record.id === parseInt(req.params.id)) {
-            record.pruid = updatedRecord.pruid ? updatedRecord.pruid : record.pruid
-            record.prname  = updatedRecord.prname ? updatedRecord.prname : record.prname
-            record.prnameFR  = updatedRecord.prnameFR ? updatedRecord.prnameFR : record.prnameFR
-            record.date  = updatedRecord.date ? updatedRecord.date : record.date
-            record.numconf  = updatedRecord.numconf ? updatedRecord.numconf : record.numconf
-            record.numprob  = updatedRecord.numprob ? updatedRecord.numprob : record.numprob
-            record.numdeaths  = updatedRecord.numdeaths ? updatedRecord.numdeaths : record.numdeaths
-            record.numtotal  = updatedRecord.numtotal ? updatedRecord.numtotal : record.numtotal
-            record.numtoday  = updatedRecord.numtoday ? updatedRecord.numtoday : record.numtoday
-
-            res.json(recordsToDisplay)
-        }
-    })
-})
-
-//Deleting a record
-app.delete('/api/records/:id', (req, res) => {
-    recordsToDisplay = recordsToDisplay.filter(record => record.id !== parseInt(req.params.id))
-    res.json(recordsToDisplay)
-})
-
-//Getting a specific record by id
-app.get('/api/records/:id', (req, res) => {
-    res.json(recordsToDisplay.filter(record => record.id === parseInt(req.params.id)))
-}) 
-
-//Getting all the records
-app.get('/api/records', (req, res) => {
-    res.json(recordsToDisplay)
-})
 
 //Default port is 5000, and if the server doesn't start on 5000, logs which port it started
 const PORT = process.env.PORT || 5000;
