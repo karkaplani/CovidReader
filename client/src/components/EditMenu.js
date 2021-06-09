@@ -1,26 +1,11 @@
-import Modal from 'react-modal'
-
-Modal.setAppElement('#root')
-
-const EditMenu = ({editMenuIsOpen, records, rowIndex, deleteRecord, getData}) => {
+const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen ,records, rowIndex, deleteRecord, getData}) => {
 
     return (
         <>
-          <Modal 
-          closeTimeoutMS={2000}
-          isOpen={editMenuIsOpen && true} 
-          style={
-            {
-              overlay: {
-                transition: 'opacity 2000ms ease-in-out',
-                width: '500px',
-                height: '200px',
-                margin: 'auto'
-              }
-            }
-          }
-          >
-            <table className='record-table' id='table'>
+          <div id="myModal" class="modal" style={{display: editMenuIsOpen && 'block'}} >
+            <div class="modal-content">
+              <span class="close" onClick = {() => setEditMenuIsOpen(!editMenuIsOpen)}>&times;</span>
+              <table className='record-table' id='table'>
               <tr>
                 <th>PruId</th>
                 <th>PrName</th>
@@ -47,7 +32,9 @@ const EditMenu = ({editMenuIsOpen, records, rowIndex, deleteRecord, getData}) =>
 
             <button onClick={() => deleteRecord(rowIndex)}>Delete</button>
             <button onClick={() => getData(rowIndex)}>Update</button>
-        </Modal>
+            </div>
+
+          </div>
         </>
     )
 }

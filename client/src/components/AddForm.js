@@ -1,71 +1,64 @@
-import Modal from 'react-modal'
+//import Modal from 'react-modal'
+//import Modal from 'reactstrap' 
 import {useForm} from 'react-hook-form'
 
-Modal.setAppElement('#root')
+//Modal.setAppElement('#root')
 
 const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
 
     const {register, handleSubmit, formState: { errors} } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data)
-        addRow(data)
-    }
-
     return (
         <>
-          <Modal 
-          closeTimeoutMS={2000}
-          isOpen={menuIsOpen && true}
-          style={
-            {
-              overlay: {
-                transition: 'opacity 2000ms ease-in-out',
-                width: '500px',
-                height: '500px',
-                margin: 'auto'
-              }
-            }
-          }>
-          <h2>Add Record</h2>
-        
-          <form onSubmit={handleSubmit((data) => {addRow(data)})}>
+          <div id="myModal" class="modal" style={{display: menuIsOpen && 'block'}} >
+            <div class="modal-content">
+              <h2>Add Record</h2>
+              <span class="close" onClick = {() => setMenuIsOpen(!menuIsOpen)}>&times;</span>
 
-            <label htmlFor="id">Id</label>
-            <input type="text" name='id' {...register('id', {required: true})} /> <br />
-            {errors.id && <p>This is required</p>}
+              <form onSubmit={handleSubmit((data) => {addRow(data)})}>
 
-            <label htmlFor="pruid">PruId</label>
-            <input type="text" name='pruid' {...register('pruid')}/> <br />
+                <label htmlFor="prname">Select province</label>
+                <select name='prname' {...register('prname')}> 
+                  <option value="Canada">Unknown</option>
+                  <option value="Ontario">Ontario</option>
+                  <option value="British Columbia">British Columbia</option>
+                  <option value="Quebec">Quebec</option>
+                  <option value="Alberta">Alberta</option>
+                  <option value="Manitoba">Manitoba</option>
+                  <option value="Saskatchewan">Saskatchewan</option>
+                  <option value="New Brunswick">New Brunswick</option>
+                  <option value="Nova Scotia">Nova Scotia</option>
+                  <option value="Prince Edward Island">Prince Edward Island</option>
+                  <option value="Northwest Territories">Northwest Territories</option>
+                  <option value="Nunavut">Nunavut</option>
+                  <option value="Yukon">Yukon</option>
+                  <option value="Repatriated travellers">Repatriated travellers</option>
+                </select> <br />
 
-            <label htmlFor="prname">PrName</label>
-            <input type="text" name='prname' {...register('prname')}/> <br />
-            
-            <label htmlFor="prnamefr">PrNameFr</label>
-            <input type="text" name='prnamefr'{...register('prnamefr')}/> <br />
+                <label htmlFor="date">Date</label>
+                <input type="date" name='date' {...register('date', {required: true})}/> <br />
+                {errors.date && <p>This field is required</p>}
 
-            <label htmlFor="date">Date</label>
-            <input type="text" name='date' {...register('date')}/> <br />
+                <label htmlFor="numconf">NumConf</label>
+                <input type="text" name='numconf' {...register('numconf')}/> <br />
+                
+                <label htmlFor="numprob">NumProb</label>
+                <input type="text" name='numprob' {...register('numprob')}/> <br />
 
-            <label htmlFor="numconf">NumConf</label>
-            <input type="text" name='numconf' {...register('numconf')}/> <br />
-            
-            <label htmlFor="numprob">NumProb</label>
-            <input type="text" name='numprob' {...register('numprob')}/> <br />
+                <label htmlFor="numdeaths">NumDeaths</label>
+                <input type="text" name='numdeaths' {...register('numdeaths')}/> <br />
 
-            <label htmlFor="numdeaths">NumDeaths</label>
-            <input type="text" name='numdeaths' {...register('numdeaths')}/> <br />
+                <label htmlFor="numtotal">NumTotal</label>
+                <input type="text" name='numtotal' {...register('numtotal')}/> <br />
+                
+                <label htmlFor="numtoday">NumToday</label>
+                <input type="text" name='numtoday' {...register('numtoday')}/> <br />
 
-            <label htmlFor="numtotal">NumTotal</label>
-            <input type="text" name='numtotal' {...register('numtotal')}/> <br />
-            
-            <label htmlFor="numtoday">NumToday</label>
-            <input type="text" name='numtoday' {...register('numtoday')}/> <br />
-
-            <input type="submit" name='submit' value='Submit'/>
-          </form>
-          <button onClick = {() => setMenuIsOpen(!menuIsOpen)}>Close</button>
-        </Modal>  
+                <input type="submit" name='submit' value='Submit'/>
+              </form>
+              <button onClick = {() => setMenuIsOpen(!menuIsOpen)}>Close</button> 
+            </div>
+          </div>
         </>
     )
 }
