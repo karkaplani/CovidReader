@@ -42,7 +42,6 @@ router.delete('/:id', (req, res) => {
 
 //Getting a specific record by id
 router.get('/:id', (req, res) => {
-    //console.log(res.json(recordsToDisplay.filter(record => record.id === parseInt(req.params.id))).toString())
     res.json(recordsToDisplay.filter(record => record.id === parseInt(req.params.id)))
 }) 
 
