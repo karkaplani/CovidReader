@@ -1,8 +1,5 @@
-//import Modal from 'react-modal'
-//import Modal from 'reactstrap' 
 import {useForm} from 'react-hook-form'
-
-//Modal.setAppElement('#root')
+import Popup from 'reactjs-popup'
 
 const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
 
@@ -12,13 +9,12 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
         <>
           <div id="myModal" class="modal" style={{display: menuIsOpen && 'block'}} >
             <div class="modal-content">
+            <span class="close" onClick = {() => setMenuIsOpen(!menuIsOpen)}>&times;</span>
               <h2>Add Record</h2>
-              <span class="close" onClick = {() => setMenuIsOpen(!menuIsOpen)}>&times;</span>
+              <form className="add-form" onSubmit={handleSubmit((data) => {addRow(data)})}>
 
-              <form onSubmit={handleSubmit((data) => {addRow(data)})}>
-
-                <label htmlFor="prname">Select province</label>
                 <select name='prname' {...register('prname')}> 
+                  <option disabled selected value="none">Select Province</option>
                   <option value="Canada">Unknown</option>
                   <option value="Ontario">Ontario</option>
                   <option value="British Columbia">British Columbia</option>
@@ -35,28 +31,21 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
                   <option value="Repatriated travellers">Repatriated travellers</option>
                 </select> <br />
 
-                <label htmlFor="date">Date</label>
-                <input type="date" name='date' {...register('date', {required: true})}/> <br />
+                <input class="date" type="date" name='date' {...register('date', {required: true})}/> <br />
                 {errors.date && <p>This field is required</p>}
 
-                <label htmlFor="numconf">NumConf</label>
-                <input type="text" name='numconf' {...register('numconf')}/> <br />
+                <input type="text" name='numconf' placeholder='Num Confirmed'{...register('numconf')}/> <br />
                 
-                <label htmlFor="numprob">NumProb</label>
-                <input type="text" name='numprob' {...register('numprob')}/> <br />
+                <input type="text" name='numprob' placeholder='Num Prob' {...register('numprob')}/> <br />
 
-                <label htmlFor="numdeaths">NumDeaths</label>
-                <input type="text" name='numdeaths' {...register('numdeaths')}/> <br />
+                <input type="text" name='numdeaths' placeholder='Num Deaths' {...register('numdeaths')}/> <br />
 
-                <label htmlFor="numtotal">NumTotal</label>
-                <input type="text" name='numtotal' {...register('numtotal')}/> <br />
+                <input type="text" name='numtotal' placeholder='Num Total' {...register('numtotal')}/> <br />
                 
-                <label htmlFor="numtoday">NumToday</label>
-                <input type="text" name='numtoday' {...register('numtoday')}/> <br />
+                <input type="text" name='numtoday' placeholder='Num Today' {...register('numtoday')}/> <br />
 
-                <input type="submit" name='submit' value='Submit'/>
-              </form>
-              <button onClick = {() => setMenuIsOpen(!menuIsOpen)}>Close</button> 
+                <input className="add" type="submit" name='submit' value='Add'/>
+              </form> 
             </div>
           </div>
         </>

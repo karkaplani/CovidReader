@@ -1,5 +1,5 @@
 body {
-  background-color: #cfe0e8
+  background-color: #cfe0e8;
 } 
 
 h1 {
@@ -18,6 +18,8 @@ button {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
+
+
 
 button:hover {
   background-color: gray;
@@ -41,6 +43,10 @@ button:hover {
   box-shadow: 0 0 10px 10px gray;
   border-radius: 15px;
   height: 500px;
+}
+
+.container::-webkit-scrollbar {
+  display: none;
 }
 
 .record-table {
@@ -101,8 +107,6 @@ footer {
   opacity: 0;
 }
 
-
-
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -121,17 +125,24 @@ footer {
 /* Modal Content */
 .modal-content {
   position: relative;
-  background-color: #fefefe;
+  background-color: #cfe0e8;
   margin: auto;
   padding: 0;
   border: 1px solid #888;
-  width: 50%;
+  width: 25%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   -webkit-animation-name: animatetop;
   -webkit-animation-duration: 0.4s;
   animation-name: animatetop;
-  animation-duration: 0.4s
+  animation-duration: 0.4s;
 }
+
+#edit-modal {
+  width: 800px;
+  height: 150px;
+}
+
+
 
 /* Add Animation */
 @-webkit-keyframes animatetop {
@@ -146,7 +157,7 @@ footer {
 
 /* The Close Button */
 .close {
-  color: white;
+  color: black;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -154,7 +165,7 @@ footer {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color:white;
   text-decoration: none;
   cursor: pointer;
 }
@@ -171,6 +182,56 @@ footer {
   padding: 2px 16px;
   background-color: #5cb85c;
   color: white;
+}
+
+.add-form {
+  text-align: center;
+  display: block;
+  height: 281px;
+}
+
+h2 {
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 36px;
+}
+
+input {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin-bottom: 10px;
+  width: 120px;
+}
+
+select {
+  margin-bottom: 10px;
+  width: 130px;
+}
+
+.date {
+  width: 122px;
+}
+
+.add {
+  width: 60px;
+  height: 36px;
+  background-color: #87bdd8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+.delete-button, .update-button {
+  margin-bottom: 0px;
+  margin-left: 0%;
+  margin-right: 0%;
+  margin-top: 10px;
+  height: 25px;
+  display: inline-block;
+}
+
+.delete-button {
+  margin-left: 300px;
 }
 
 
