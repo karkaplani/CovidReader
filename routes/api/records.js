@@ -3,7 +3,6 @@ const router = express.Router()
 const Recorder = require('../../CovidRecord'); //DTO
 
 var recordsToDisplay = require('../../RecordsToDisplay')
-//console.log("\n" +  JSON.stringify(recordsToDisplay)) //Prints undefined
 
 //Adding a record
 router.post('/', (req, res) => {
