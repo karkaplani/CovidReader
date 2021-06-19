@@ -6,8 +6,8 @@ import EditMenu from './components/EditMenu'
 const App = () => {
   const [editMenuIsOpen, setEditMenuIsOpen] = useState(false)
   const [menuIsOpen, setMenuIsOpen] = useState(false)
-  const [rowIndex, setRowIndex] = useState(0)
   const [records, setRecords] = useState([])
+  const [recordToEdit, setRecordToEdit] = useState([])
 
   useEffect(() => { 
     fetch('/api/records').then(res => {
@@ -25,8 +25,6 @@ const App = () => {
 
     fetch(`/api/records/${id}`, {
       method: 'DELETE',
-      //headers: { 'Content-Type': 'application/json' },
-      //body: records
     }).then(res => {
       return res.json()
 
@@ -159,9 +157,15 @@ const App = () => {
   }
 
   const openEditMenu = (number) => {
-    setRowIndex(number)
-    setEditMenuIsOpen(!editMenuIsOpen)
-    console.log(rowIndex)
+
+    fetch('/api/records/' + number).then(res => {
+      if(res.ok) {
+        return res.json()
+      }
+    }).then(jsonResponse => {
+      setRecordToEdit(jsonResponse)
+      setEditMenuIsOpen(!editMenuIsOpen)
+    })
   }
  
   return (
@@ -177,9 +181,9 @@ const App = () => {
           editMenuIsOpen={editMenuIsOpen}
           setEditMenuIsOpen={setEditMenuIsOpen}
           records={records}
-          rowIndex={rowIndex}
           deleteRecord={deleteRecord} 
-          getData={getData} />}
+          getData={getData} 
+          recordToEdit={recordToEdit}/>}
     </div>
     
   )

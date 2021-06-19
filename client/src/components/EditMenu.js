@@ -1,5 +1,6 @@
-const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen ,records, rowIndex, deleteRecord, getData}) => {
+const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen, deleteRecord, getData, recordToEdit}) => {
 
+  console.log(recordToEdit[0].pruid)
     return (
         <>
           <div id="myModal" class="modal" style={{display: editMenuIsOpen && 'block'}} >
@@ -18,20 +19,21 @@ const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen ,records, rowIndex, deleteRe
                 <th>NumToday</th>
               </tr>
               <tr>
-                <td id='pruid'> { records.find(record => record.id === rowIndex).pruid } </td>
-                <td class='prname'> { records.find(record => record.id === rowIndex).prname } </td>
-                <td class='prnamefr'> { records.find(record => record.id === rowIndex).prnameFR } </td>
-                <td class='date'> { records.find(record => record.id === rowIndex).date } </td>
-                <td class='numconf' contentEditable='true'> { records.find(record => record.id === rowIndex).numconf } </td>
-                <td class='numprob' contentEditable='true'> { records.find(record => record.id === rowIndex).numprob } </td>
-                <td class='numdeaths' contentEditable='true'> { records.find(record => record.id === rowIndex).numdeaths } </td>
-                <td class='numtotal' contentEditable='true'> { records.find(record => record.id === rowIndex).numtotal } </td>
-                <td class='numtoday' contentEditable='true'> { records.find(record => record.id === rowIndex).numtoday } </td>
+                <td id='pruid'> { recordToEdit[0].pruid } </td>
+                <td class='prname'> {recordToEdit[0].prname } </td>
+                <td class='prnamefr'> { recordToEdit[0].prnameFR } </td>
+                <td class='date'> { recordToEdit[0].date } </td>
+                <td class='numconf' contentEditable='true'> { recordToEdit[0].numconf } </td>
+                <td class='numprob' contentEditable='true'> { recordToEdit[0].numprob } </td>
+                <td class='numdeaths' contentEditable='true'> { recordToEdit[0].numdeaths } </td>
+                <td class='numtotal' contentEditable='true'> { recordToEdit[0].numtotal } </td>
+                <td class='numtoday' contentEditable='true'> { recordToEdit[0].numtoday } </td>
+                
               </tr>
             </table>
 
-            <button class="delete-button" onClick={() => deleteRecord(rowIndex)}>Delete</button>
-            <button class="update-button"  onClick={() => getData(rowIndex)}>Update</button>
+            <button class="delete-button" onClick={() => deleteRecord(recordToEdit[0].id)}>Delete</button>
+            <button class="update-button"  onClick={() => getData(recordToEdit[0].id)}>Update</button>
             </div>
 
           </div>
