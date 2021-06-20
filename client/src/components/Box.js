@@ -1,10 +1,10 @@
 import React from 'react'
 import Table from './Table'
 
-const Box = ({records, onDelete, onEdit}) => {
+const Box = ({records, onEdit}) => {
     return (
         <div>
-            <Table records={records} onDelete={onDelete} onEdit={onEdit}/>
+            <Table records={records} onEdit={onEdit}/>
         </div>
     )
 }

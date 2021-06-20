@@ -1,7 +1,6 @@
 const chai = require('chai')
 const chaiHttp = require('chai-http')
-const { response } = require('../CovidReader')
-const server = require('../CovidReader') 
+const server = require('../Server') 
 
 chai.should()
 chai.use(chaiHttp)
@@ -16,7 +15,7 @@ describe('Records API', () => {
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('array')
-          res.body.length.should.be.eq(11)
+          res.body.length.should.be.eq(100)
         done()
         })
     })
@@ -29,6 +28,7 @@ describe('Records API', () => {
       chai.request(server) 
         .get('/api/records/'+recordID)
         .end((err, res) => {
+          console.log(res.body)
           res.should.have.status(200)
           res.body[0].should.be.a('object')
           res.body[0].should.have.property('id').eq(recordID)

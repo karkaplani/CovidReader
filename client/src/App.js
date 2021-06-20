@@ -1,14 +1,16 @@
-import Box from './components/Box'
 import { useState, useEffect } from 'react'
-import AddForm from './components/AddForm'
+
+import Box from './components/Box'
+import AddForm from './components/AddForm' 
 import EditMenu from './components/EditMenu'
 
 const App = () => {
   const [editMenuIsOpen, setEditMenuIsOpen] = useState(false)
-  const [menuIsOpen, setMenuIsOpen] = useState(false)
+  const [menuIsOpen, setMenuIsOpen] = useState(false) //For the form component
   const [records, setRecords] = useState([])
-  const [recordToEdit, setRecordToEdit] = useState([])
+  const [recordToEdit, setRecordToEdit] = useState([]) //For the edit menu
 
+  //Fetching all the records from the API at the beginning
   useEffect(() => { 
     fetch('/api/records').then(res => {
       if(res.ok) {
@@ -16,26 +18,27 @@ const App = () => {
       }
     }).then(jsonResponse => {
       setRecords(jsonResponse)
+    }).catch(() => {
+      console.log('Records could not get!')
     })
   }, [])
 
   const deleteRecord = (id) => { 
-
     setEditMenuIsOpen(!editMenuIsOpen)
-
+    
     fetch(`/api/records/${id}`, {
       method: 'DELETE',
     }).then(res => {
       return res.json()
-
     }).then(jsonResponse => {
-      console.log(jsonResponse)
-      setRecords(jsonResponse)
+      setRecords(jsonResponse) //Setting the records again with the filtered array
     })
   }
 
+  //Since there are certain pruid and French name for each province, 
+  //they are set here in order to eliminate the redundant data that
+  //should be entered by the user.
   const setPruIDAndprnameFR = (data) => {
-
     switch(data.prname) {
       case 'Ontario': 
         data.pruid = '35' 
@@ -104,11 +107,10 @@ const App = () => {
   }
 
   const addRow = (data) => {  
-
-    data.id = Date.now() //Simple trick to generate a unique id
+    data.id = Date.now() //Simple trick to generate a unique id for a new row
     data = setPruIDAndprnameFR(data)
-
-    setMenuIsOpen(!menuIsOpen)
+    //First the menu should be closed to prevent the error due to the removed data
+    setMenuIsOpen(!menuIsOpen) 
 
     fetch('/api/records', {
       method: 'POST',
@@ -116,14 +118,12 @@ const App = () => {
       body: JSON.stringify(data)
     }).then(res=> {
       return res.json()
-
     }).then(jsonResponse => {
       setRecords(jsonResponse)
     })
   }
 
   const updateRow = (id, data) => {
-    
     setEditMenuIsOpen(!editMenuIsOpen)
 
     fetch(`/api/records/${id}`, {
@@ -132,15 +132,16 @@ const App = () => {
       body: JSON.stringify(data)
     }).then(res=> {
       return res.json()
-
     }).then(jsonResponse=> {
       setRecords(jsonResponse)
     })
   }
 
+  //Getting the newly put data from the edit menu and sending it to 
+  //the updateRow function for the PUT request to update the table.
   const getData = (rowIndex) => {
     var table = document.getElementById('table')
-    var objCells = table.rows.item(1).cells
+    var objCells = table.rows.item(1).cells //First cell is the headers
     const data = {
       id: rowIndex,
       pruid: objCells.item(0).innerHTML,
@@ -156,9 +157,8 @@ const App = () => {
     updateRow(rowIndex, data)
   }
 
-  const openEditMenu = (number) => {
-
-    fetch('/api/records/' + number).then(res => {
+  const openEditMenu = (id) => {
+    fetch('/api/records/' + id).then(res => {
       if(res.ok) {
         return res.json()
       }
@@ -184,9 +184,7 @@ const App = () => {
           deleteRecord={deleteRecord} 
           getData={getData} 
           recordToEdit={recordToEdit}/>}
-    </div>
-    
+    </div>   
   )
 }
-
 export default App

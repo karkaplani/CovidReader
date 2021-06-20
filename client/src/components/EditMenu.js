@@ -1,6 +1,4 @@
 const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen, deleteRecord, getData, recordToEdit}) => {
-
-  console.log(recordToEdit[0].pruid)
     return (
         <>
           <div id="myModal" class="modal" style={{display: editMenuIsOpen && 'block'}} >
@@ -28,17 +26,13 @@ const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen, deleteRecord, getData, reco
                 <td class='numdeaths' contentEditable='true'> { recordToEdit[0].numdeaths } </td>
                 <td class='numtotal' contentEditable='true'> { recordToEdit[0].numtotal } </td>
                 <td class='numtoday' contentEditable='true'> { recordToEdit[0].numtoday } </td>
-                
               </tr>
             </table>
-
             <button class="delete-button" onClick={() => deleteRecord(recordToEdit[0].id)}>Delete</button>
             <button class="update-button"  onClick={() => getData(recordToEdit[0].id)}>Update</button>
             </div>
-
           </div>
         </>
     )
 }
-
 export default EditMenu

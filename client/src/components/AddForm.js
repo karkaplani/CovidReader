@@ -1,5 +1,4 @@
 import {useForm} from 'react-hook-form'
-import Popup from 'reactjs-popup'
 
 const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
 
@@ -35,15 +34,10 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
                 {errors.date && <p>This field is required</p>}
 
                 <input type="text" name='numconf' placeholder='Num Confirmed'{...register('numconf')}/> <br />
-                
                 <input type="text" name='numprob' placeholder='Num Prob' {...register('numprob')}/> <br />
-
                 <input type="text" name='numdeaths' placeholder='Num Deaths' {...register('numdeaths')}/> <br />
-
                 <input type="text" name='numtotal' placeholder='Num Total' {...register('numtotal')}/> <br />
-                
                 <input type="text" name='numtoday' placeholder='Num Today' {...register('numtoday')}/> <br />
-
                 <input className="add" type="submit" name='submit' value='Add'/>
               </form> 
             </div>
@@ -51,5 +45,4 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
         </>
     )
 }
-
 export default AddForm

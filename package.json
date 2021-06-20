@@ -2,7 +2,7 @@
   "name": "covidreader",
   "version": "1.0.0",
   "description": "",
-  "main": "CovidReader.js",
+  "main": "Server.js",
   "scripts": {
     "dev": "nodemon index",
     "client": "cd client && npm start",
