@@ -2,7 +2,7 @@ import React from 'react'
 
 const Row = ({record, onEdit}) => {
     return (
-        <tr onClick={() => {onEdit(record.id)}}>
+        <tr onClick={() => {onEdit(record._id)}}>
             <td>{record.pruid}</td>
             <td>{record.prname}</td>
             <td>{record.prnameFR}</td>

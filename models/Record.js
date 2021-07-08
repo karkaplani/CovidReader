@@ -12,7 +12,7 @@ const RecordSchema = new Schema({
         type: String,
     }, 
     date: {
-        type: Date,
+        type: String,
     }, 
     numconf: {
         type: String,
@@ -31,4 +31,4 @@ const RecordSchema = new Schema({
     }, 
 })
 
-module.exports = Item = mongoose.model('case', RecordSchema)
+module.exports = Item = mongoose.model('records', RecordSchema)

@@ -17,19 +17,19 @@ const EditMenu = ({editMenuIsOpen,setEditMenuIsOpen, deleteRecord, getData, reco
                 <th>NumToday</th>
               </tr>
               <tr>
-                <td id='pruid'> { recordToEdit[0].pruid } </td>
-                <td class='prname'> {recordToEdit[0].prname } </td>
-                <td class='prnamefr'> { recordToEdit[0].prnameFR } </td>
-                <td class='date'> { recordToEdit[0].date } </td>
-                <td class='numconf' contentEditable='true'> { recordToEdit[0].numconf } </td>
-                <td class='numprob' contentEditable='true'> { recordToEdit[0].numprob } </td>
-                <td class='numdeaths' contentEditable='true'> { recordToEdit[0].numdeaths } </td>
-                <td class='numtotal' contentEditable='true'> { recordToEdit[0].numtotal } </td>
-                <td class='numtoday' contentEditable='true'> { recordToEdit[0].numtoday } </td>
+                <td id='pruid'> { recordToEdit.pruid } </td>
+                <td class='prname'> {recordToEdit.prname } </td>
+                <td class='prnamefr'> { recordToEdit.prnameFR } </td>
+                <td class='date'> { recordToEdit.date } </td>
+                <td class='numconf' contentEditable='true'> { recordToEdit.numconf } </td>
+                <td class='numprob' contentEditable='true'> { recordToEdit.numprob } </td>
+                <td class='numdeaths' contentEditable='true'> { recordToEdit.numdeaths } </td>
+                <td class='numtotal' contentEditable='true'> { recordToEdit.numtotal } </td>
+                <td class='numtoday' contentEditable='true'> { recordToEdit.numtoday } </td>
               </tr>
             </table>
-            <button class="delete-button" onClick={() => deleteRecord(recordToEdit[0].id)}>Delete</button>
-            <button class="update-button"  onClick={() => getData(recordToEdit[0].id)}>Update</button>
+            <button class="delete-button" onClick={() => deleteRecord(recordToEdit._id)}>Delete</button>
+            <button class="update-button"  onClick={() => getData(recordToEdit._id)}>Update</button>
             </div>
           </div>
         </>

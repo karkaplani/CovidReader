@@ -16,7 +16,6 @@ const Record = require('../../models/Record')
 
 /** GET(Read) route. Simply returns all the records array.  */
 router.get('/', (req, res) => {
-  //res.json(records)
   Record.find()
     .then(cases => res.json(cases))
 })
@@ -26,8 +25,9 @@ router.get('/', (req, res) => {
  * Uses the high-order array filter function for the array to have only
  * the specified element and returns that array.
  */
-router.get('/:id', (req, res) => {
-  res.json(records.filter(record => record.id === parseInt(req.params.id)))
+router.get('/:id', async(req, res) => {
+  Record.findById(req.params.id)
+    .then(cases => res.json(cases))
 }) 
 
 /**
@@ -35,22 +35,22 @@ router.get('/:id', (req, res) => {
  * array with the ID specified element, and returns the array with the other elements.
  */
 router.delete('/:id', (req, res) => {
-  records = records.filter(record => record.id !== parseInt(req.params.id))
-  res.json(records)
+  Record.findById(req.params.id)
+    .then(record => record.remove()
+    .then(() => {
+      Record.find()
+      .then(cases => res.json(cases))
+    }))
 })
 
 /** POST(Create) route. Simply stores the data taken in a DTO and pushes to the records array */
 router.post('/', (req, res) => {
-  const newRecord = new Recorder(parseInt(req.body.id), req.body.pruid, req.body.prname, req.body.prnameFR, req.body.date, 
-                                   req.body.numconf, req.body.numprob, req.body.numdeaths, req.body.numtotal, req.body.numtoday)
-                        
-  records.push(newRecord)
-
-  const newRecordo = new Record({pruid: req.body.pruid})
-
-  newRecordo.save().then(record => res.json(record))
-
-  // res.json(records)
+  const newRecord = new Record(req.body)
+  newRecord.save()
+  .then(() => {
+    Record.find()
+    .then(cases => res.json(cases))
+  })
 })
 
 /**
@@ -59,22 +59,14 @@ router.post('/', (req, res) => {
  * whether the certain elements' values are different in the request's body.
  * If different, replaces with the new value, if not keeps the current value.
  */
-router.put('/:id', (req, res) => {
-  const updatedRecord = req.body
-  records.forEach(record => {
-    if(record.id === parseInt(req.params.id)) {
-      record.pruid = updatedRecord.pruid ? updatedRecord.pruid : record.pruid
-      record.prname  = updatedRecord.prname ? updatedRecord.prname : record.prname
-      record.prnameFR  = updatedRecord.prnameFR ? updatedRecord.prnameFR : record.prnameFR
-      record.date  = updatedRecord.date ? updatedRecord.date : record.date
-      record.numconf  = updatedRecord.numconf ? updatedRecord.numconf : record.numconf
-      record.numprob  = updatedRecord.numprob ? updatedRecord.numprob : record.numprob
-      record.numdeaths  = updatedRecord.numdeaths ? updatedRecord.numdeaths : record.numdeaths
-      record.numtotal  = updatedRecord.numtotal ? updatedRecord.numtotal : record.numtotal
-      record.numtoday  = updatedRecord.numtoday ? updatedRecord.numtoday : record.numtoday
-
-      res.json(records)
-    }
+router.patch('/:id', (req, res) => {
+  Record.updateOne(
+    {_id: req.params.id},
+    {$set: req.body}
+  )
+  .then(() => {
+    Record.find()
+    .then(cases => res.json(cases))
   })
 })
 

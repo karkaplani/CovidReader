@@ -107,7 +107,7 @@ const App = () => {
   }
 
   const addRow = (data) => {  
-    data.id = Date.now() //Simple trick to generate a unique id for a new row
+    //data.id = Date.now() //Simple trick to generate a unique id for a new row
     data = setPruIDAndprnameFR(data)
     //First the menu should be closed to prevent the error due to the removed data
     setMenuIsOpen(!menuIsOpen) 
@@ -127,7 +127,7 @@ const App = () => {
     setEditMenuIsOpen(!editMenuIsOpen)
 
     fetch(`/api/records/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     }).then(res=> {
