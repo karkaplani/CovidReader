@@ -11,9 +11,14 @@ const Recorder = require('../../CovidRecord') //Data Transfer Object
 //Calling the last module to get the records array to be used by the API
 let records = require('../../FileReader')
 
+//Record model
+const Record = require('../../models/Record')
+
 /** GET(Read) route. Simply returns all the records array.  */
 router.get('/', (req, res) => {
-  res.json(records)
+  //res.json(records)
+  Record.find()
+    .then(cases => res.json(cases))
 })
 
 /**
@@ -38,8 +43,14 @@ router.delete('/:id', (req, res) => {
 router.post('/', (req, res) => {
   const newRecord = new Recorder(parseInt(req.body.id), req.body.pruid, req.body.prname, req.body.prnameFR, req.body.date, 
                                    req.body.numconf, req.body.numprob, req.body.numdeaths, req.body.numtotal, req.body.numtoday)
+                        
   records.push(newRecord)
-  res.json(records)
+
+  const newRecordo = new Record({pruid: req.body.pruid})
+
+  newRecordo.save().then(record => res.json(record))
+
+  // res.json(records)
 })
 
 /**
