@@ -1,7 +1,15 @@
-const mongoose = require('mongoose')
-const db = require('../config/keys').mongoURI
+/**
+ * @author Abdullah Ilgun (Apo)
+ * Testing the MongoDB connectivity using a mock collection(Table).
+ * Connection is made here, and so far only whether a new document
+ * (record) can be added to the collection is tested. This case
+ * also uses mocha-chai framework. 
+ */
 
-const Record = require('../models/TestRecord')
+const mongoose = require('mongoose')
+const db = require('../config/keys').mongoURI //Database is the same
+
+const Record = require('../models/TestRecord') //Collection is mock
 
 const chai = require('chai')
 chai.should()
@@ -14,8 +22,10 @@ describe('Mongo connection', () => {
       .catch((err) => console.log(err))
   })
 
+  //The collection should be refreshed before each test unit
+  //in case new test cases wanted to be added.
   beforeEach(() => {
-    Record.deleteMany({})
+    Record.deleteMany({}) 
       .then(() => {
         console.log("All records deleted")
     })

@@ -1,7 +1,8 @@
 /**
  * @author Abdullah Ilgun (Apo)
  * The main module to be called by Node. It's doing nothing but starting
- * the server. It creates the URl and uses the records file to set the routes.
+ * the server and making the database connection in the cloud. 
+ * It creates the URL and uses the records file to set the routes.
  */
 
 const express = require('express')
@@ -24,7 +25,5 @@ mongoose.connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
 const PORT = process.env.PORT || 5000
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 console.log('\nBy Abdullah Zeki Ilgun')
-
-//  db.collection('cases')
 
 module.exports = app
