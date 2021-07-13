@@ -6,10 +6,6 @@
  */
 const express = require('express')
 const router = express.Router()
-const Recorder = require('../../CovidRecord') //Data Transfer Object
-
-//Calling the last module to get the records array to be used by the API
-let records = require('../../FileReader')
 
 //Record model
 const Record = require('../../models/Record')

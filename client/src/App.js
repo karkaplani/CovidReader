@@ -51,6 +51,7 @@ const App = () => {
       case 'Canada':
         data.pruid = '1'
         data.prnameFR = 'Canada'
+      return data
       case 'Quebec': 
         data.pruid = '24'
         data.prnameFR = 'Quebéc'
@@ -95,13 +96,13 @@ const App = () => {
         data.pruid = '99'
         data.prnameFR = 'Voyageurs rapatriés'
       return data
-      case 'Repatriated travellers':
-        data.pruid = '99'
-        data.prnameFR = 'Voyageurs rapatriés'
-      return data
       case 'Manitoba':
         data.pruid = '46'
         data.prnameFR = 'Manitoba'
+      return data
+      default:
+        data.pruid = '1'
+        data.prnameFR = 'Canada'
       return data
     }
   }
