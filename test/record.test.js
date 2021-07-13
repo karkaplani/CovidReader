@@ -5,6 +5,8 @@ const server = require('../Server')
 chai.should()
 chai.use(chaiHttp)
 
+const Record = require('../models/Record')
+
 describe('Records API', () => {
 
   /**Get */
@@ -15,7 +17,6 @@ describe('Records API', () => {
         .end((err, res) => {
           res.should.have.status(200)
           res.body.should.be.a('array')
-          res.body.length.should.be.eq(100)
         done()
         })
     })
@@ -24,40 +25,35 @@ describe('Records API', () => {
   /**Get with ID */
   describe('GET /api/records:id', () => {
     it('It should get a record by ID', (done) => {
-      const recordID = 0
-      chai.request(server) 
-        .get('/api/records/'+recordID)
-        .end((err, res) => {
-          console.log(res.body)
-          res.should.have.status(200)
-          res.body[0].should.be.a('object')
-          res.body[0].should.have.property('id').eq(recordID)
-          done()
-        })
+      
+      let mockRecordId
+
+      Record.findOne()
+        .then(anan => mockRecordId = anan._id).catch(err => console.log(err))
+        .then(() => {
+          chai.request(server) 
+            .get('/api/records/'+mockRecordId)
+            .end((err, res) => {
+              res.should.have.status(200)
+              res.body.should.be.a('object')
+              res.body.should.have.property('_id')
+              done()
+          })
+        }).catch(err => console.log(err))
     })
   })
 
   /**Post */
   describe('POST /api/records', () => {
     it('It should add a new record', (done) => {
-      const newRecord = {
-        "id": 31,
-        "pruid": 31,
-        "prname": 31,
-        "prnameFR": 31,
-        "date": 31,
-        "numconf": 31,
-        "numprob": 31,
-        "numdeaths": 31,
-        "numtotal": 31,
-        "numtoday": 31
-      }
+      const newRecord = {"pruid": 31}
       chai.request(server)
         .post('/api/records/')
         .send(newRecord)
         .end((err, res) => {
           res.should.have.status(200)
-          res.body.filter(record => record.id == 31)[0].should.have.property('id').eq(31)
+          console.log("Inserted document ID: " + res.body.filter(record => record.pruid == 31)[0]._id)
+          res.body.filter(record => record.pruid == 31)[0].should.have.property('pruid').eq('31')
           done()
         })
     })
@@ -66,30 +62,23 @@ describe('Records API', () => {
   /**Delete */
   describe('DELETE /api/records:id', () => {
     it('It should delete a record by ID', (done) => {
-      const recordID = 0
-      chai.request(server)
-        .delete('/api/records/' + recordID)
-        .end((err, res) => {
-          res.should.have.status(200)
-          res.body[recordID].should.have.property('id').not.eq(0)
-          done()
-        })
-    })
-  })
 
-  /**Put */
-  describe('PUT /api/records:id', () => {
-    it('It should update a record', (done) => {
-      const recordID = 0
-      const recordUpdated = { "pruid": 31 }
-      chai.request(server)
-        .put('/api/records/' + recordID)
-        .send(recordUpdated)
-        .end((err, res) => {
-          res.should.have.status(200)
-          res.body[recordID].should.have.property('pruid').eq(31)
-          done()
-        }).catch(done())
+      let mockRecordId
+
+      Record.findOne().sort({'_id':-1}).limit(1)
+        .then(anan => mockRecordId = anan._id).catch(err => console.log(err))
+        .then(() => {
+          chai.request(server) 
+            .delete('/api/records/' + mockRecordId)
+            .end((err, res) => {
+              console.log("Deleted document ID: " + mockRecordId)
+              res.should.have.status(200)
+              res.body.forEach(element => {
+                element.should.have.property('_id').not.eq(mockRecordId)
+              });
+              done()
+          })
+        }).catch(err => console.log(err))
     })
   })
 })
