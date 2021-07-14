@@ -33,11 +33,11 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
                 <input class="date" type="date" name='date' {...register('date', {required: true})}/> <br />
                 {errors.date && <p>This field is required</p>}
 
-                <input type="text" name='numconf' placeholder='Num Confirmed'{...register('numconf')}/> <br />
-                <input type="text" name='numprob' placeholder='Num Prob' {...register('numprob')}/> <br />
-                <input type="text" name='numdeaths' placeholder='Num Deaths' {...register('numdeaths')}/> <br />
-                <input type="text" name='numtotal' placeholder='Num Total' {...register('numtotal')}/> <br />
-                <input type="text" name='numtoday' placeholder='Num Today' {...register('numtoday')}/> <br />
+                <input type="number" name='numconf' placeholder='Num Confirmed'{...register('numconf')}/> <br />
+                <input type="number" name='numprob' placeholder='Num Prob' {...register('numprob')}/> <br />
+                <input type="number" name='numdeaths' placeholder='Num Deaths' {...register('numdeaths')}/> <br />
+                <input type="number" name='numtotal' placeholder='Num Total' {...register('numtotal')}/> <br />
+                <input type="number" name='numtoday' placeholder='Num Today' {...register('numtoday')}/> <br />
                 <input className="add" type="submit" name='submit' value='Add'/>
               </form> 
             </div>

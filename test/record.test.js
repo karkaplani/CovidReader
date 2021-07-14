@@ -65,7 +65,7 @@ describe('Records API', () => {
           res.should.have.status(200)
           const response = res.body.filter(record => record.pruid == 31)[0]
           console.log("Inserted document ID: " + response._id)
-          response.should.have.property('pruid').eq('31')
+          response.should.have.property('pruid').eq(31)
           done()
         })
     })

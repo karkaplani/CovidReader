@@ -107,11 +107,22 @@ const App = () => {
     }
   }
 
+  const setDefaultValuesForData = (data) => {
+    for(const property in data) {
+      if(data[property] === '') {
+        console.log(data[property])
+        data[property] = 0 
+      }
+    }
+  }
+
   const addRow = (data) => {  
-    //data.id = Date.now() //Simple trick to generate a unique id for a new row
     data = setPruIDAndprnameFR(data)
+    data = setDefaultValuesForData(data)
     //First the menu should be closed to prevent the error due to the removed data
     setMenuIsOpen(!menuIsOpen) 
+    
+    
 
     fetch('/api/records', {
       method: 'POST',

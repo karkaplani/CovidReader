@@ -41,7 +41,7 @@ button:hover {
   margin-top: 70px;
   overflow: auto; 
   box-shadow: 0 0 10px 10px gray;
-  border-radius: 15px;
+  /* border-radius: 15px; */
   height: 500px;
 }
 
