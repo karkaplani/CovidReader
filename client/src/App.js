@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import Box from './components/Box'
 import AddForm from './components/AddForm' 
 import EditMenu from './components/EditMenu'
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
 
 const App = () => {
   const [editMenuIsOpen, setEditMenuIsOpen] = useState(false)
@@ -122,8 +124,6 @@ const App = () => {
     //First the menu should be closed to prevent the error due to the removed data
     setMenuIsOpen(!menuIsOpen) 
     
-    
-
     fetch('/api/records', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -179,12 +179,16 @@ const App = () => {
       setEditMenuIsOpen(!editMenuIsOpen)
     })
   }
- 
-  return (
-    <div className='container'>
+
+  const handleDragStart = (e) => e.preventDefault();
+
+const items = [
+  <div className='container'>
+      
       <h1>Covid Records</h1>
       <button onClick = {() => setMenuIsOpen(!menuIsOpen)}>Add</button>
-        <Box records={records} onEdit={openEditMenu}/>
+
+      <Box records={records} onEdit={openEditMenu}/>
         
         <AddForm menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} addRow={addRow} />
 
@@ -196,7 +200,14 @@ const App = () => {
           deleteRecord={deleteRecord} 
           getData={getData} 
           recordToEdit={recordToEdit}/>}
-    </div>   
+    </div> ,
+  <h1>b</h1>,
+  <h1>c</h1>,
+  
+];
+ 
+  return (
+    <AliceCarousel mouseTracking items={items} />
   )
 }
 export default App

@@ -1,3 +1,5 @@
+@import "react-alice-carousel/lib/alice-carousel.css";
+
 body {
   background-color: #cfe0e8;
 } 
@@ -39,6 +41,7 @@ button:hover {
   width: 67%;
   margin: auto;
   margin-top: 70px;
+  margin-bottom: 50px;
   overflow: auto; 
   box-shadow: 0 0 10px 10px gray;
   /* border-radius: 15px; */
@@ -61,7 +64,7 @@ button:hover {
   padding-bottom: 2%; 
   background-color: #87bdd8;  
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  /* position: sticky; */
+  position: sticky;
   top: 0;
 }
 

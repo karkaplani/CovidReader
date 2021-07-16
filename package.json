@@ -25,6 +25,8 @@
     "mocha": "^9.0.0",
     "mongoose": "^5.13.2",
     "node-fetch": "^2.6.1",
+    "react-alice-carousel": "^2.5.1",
+    "react-swipeable-views": "^0.14.0",
     "reactjs-popup": "^2.0.4",
     "supertest": "^6.1.3"
   },
