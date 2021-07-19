@@ -21,10 +21,8 @@ button {
   font-weight: bold;
 }
 
-
-
 button:hover {
-  background-color: gray;
+  background-color: #b7d7e8;
 }
 
 @media (min-width: 600px) {
@@ -44,7 +42,6 @@ button:hover {
   margin-bottom: 50px;
   overflow: auto; 
   box-shadow: 0 0 10px 10px gray;
-  /* border-radius: 15px; */
   height: 500px;
 }
 
@@ -111,6 +108,7 @@ footer {
 }
 
 /* The Modal (background) */
+/* Center to the screen*/
 .modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
@@ -236,6 +234,3 @@ select {
 .delete-button {
   margin-left: 300px;
 }
-
-
-

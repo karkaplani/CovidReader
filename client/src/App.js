@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 
-import Box from './components/Box'
-import AddForm from './components/AddForm' 
-import EditMenu from './components/EditMenu'
+import AddForm from './components/AddForm/AddForm' 
+import EditMenu from './components/EditMenu/EditMenu'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
+import Table from './components/Table/Table'
+import './components/ButtonStyles/add-button.css'
 
 const App = () => {
   const [editMenuIsOpen, setEditMenuIsOpen] = useState(false)
@@ -186,9 +187,9 @@ const items = [
   <div className='container'>
       
       <h1>Covid Records</h1>
-      <button onClick = {() => setMenuIsOpen(!menuIsOpen)}>Add</button>
+      <button className='plus' onClick = {() => setMenuIsOpen(!menuIsOpen)}/>
 
-      <Box records={records} onEdit={openEditMenu}/>
+      <Table records={records} onEdit={openEditMenu}/>
         
         <AddForm menuIsOpen={menuIsOpen} setMenuIsOpen={setMenuIsOpen} addRow={addRow} />
 
