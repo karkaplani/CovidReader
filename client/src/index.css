@@ -22,7 +22,7 @@ button {
 }
 
 button:hover {
-  background-color: #b7d7e8;
+  opacity: 0.8;
 }
 
 @media (min-width: 600px) {
@@ -70,6 +70,7 @@ button:hover {
   padding-bottom: 1%;  
   font-size: 14px;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
+  cursor: pointer;
 }
 
 .record-table tr:nth-child(even) {
@@ -203,6 +204,9 @@ input {
   font-size: 12px;
   margin-bottom: 10px;
   width: 120px;
+  height: 20px;
+  border: none;
+  border-radius: 0%;
 }
 
 select {
@@ -220,17 +224,29 @@ select {
   background-color: #87bdd8;
   font-family: Arial, Helvetica, sans-serif;
   font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 0%;
+}
+
+.add:hover { 
+  opacity: 0.8;
 }
 
 .delete-button, .update-button {
+  border: none;
+  border-radius: 0%;
+  cursor: pointer;
   margin-bottom: 0px;
-  margin-left: 0%;
+  margin-left: 0.5%;
   margin-right: 0%;
   margin-top: 10px;
-  height: 25px;
+  height: 30px;
   display: inline-block;
+  width: 80px;
 }
 
 .delete-button {
   margin-left: 300px;
 }
+

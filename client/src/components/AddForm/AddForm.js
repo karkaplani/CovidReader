@@ -1,4 +1,5 @@
 import {useForm} from 'react-hook-form'
+import Tooltip from '../../components/Tooltip/Tooltip'
 
 const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
 
@@ -12,8 +13,8 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
               <h2>Add Record</h2>
               <form className="add-form" onSubmit={handleSubmit((data) => {addRow(data)})}>
 
-                <select name='prname' {...register('prname')}> 
-                  <option disabled selected value="none">Select Province</option>
+                <select name='prname' {...register('prname', {required: true})}> 
+                  <option disabled selected value="Canada">Select Province</option>
                   <option value="Canada">Unknown</option>
                   <option value="Ontario">Ontario</option>
                   <option value="British Columbia">British Columbia</option>
@@ -31,7 +32,7 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
                 </select> <br />
 
                 <input class="date" type="date" name='date' {...register('date', {required: true})}/> <br />
-                {errors.date && <p>This field is required</p>}
+                {errors.date && <Tooltip/>}
 
                 <input type="number" name='numconf' placeholder='Num Confirmed'{...register('numconf')}/> <br />
                 <input type="number" name='numprob' placeholder='Num Prob' {...register('numprob')}/> <br />

@@ -113,15 +113,16 @@ const App = () => {
   const setDefaultValuesForData = (data) => {
     for(const property in data) {
       if(data[property] === '') {
-        console.log(data[property])
         data[property] = 0 
       }
     }
+    return data
   }
 
   const addRow = (data) => {  
     data = setPruIDAndprnameFR(data)
     data = setDefaultValuesForData(data)
+
     //First the menu should be closed to prevent the error due to the removed data
     setMenuIsOpen(!menuIsOpen) 
     
@@ -132,6 +133,7 @@ const App = () => {
     }).then(res=> {
       return res.json()
     }).then(jsonResponse => {
+      console.log(jsonResponse)
       setRecords(jsonResponse)
     })
   }
@@ -181,7 +183,7 @@ const App = () => {
     })
   }
 
-  const handleDragStart = (e) => e.preventDefault();
+  // const handleDragStart = (e) => e.preventDefault();
 
 const items = [
   <div className='container'>
@@ -202,8 +204,12 @@ const items = [
           getData={getData} 
           recordToEdit={recordToEdit}/>}
     </div> ,
-  <h1>b</h1>,
-  <h1>c</h1>,
+  <div className='container'>
+      <h1>Graphs</h1>
+  </div>,
+  <div className='container'>
+      <h1>About</h1>
+  </div>
   
 ];
  
