@@ -14,6 +14,18 @@ const Records = require('../../models/Record')
 
 /** GET(Read) route. Simply returns all the records array.  */
 router.get('/', (req, res) => {
+
+  let pruid = req.query.pruid
+  let month = req.query.month
+
+  if(pruid !== undefined && month !== undefined){
+    Records.find({'pruid': pruid, 'month': parseInt(month)})
+      .then(records => {
+        let lastRecord = records[records.length - 1]
+        res.json(lastRecord)
+      })
+  }
+
   Records.find()
     .then(records => res.json(records))
 })

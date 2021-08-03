@@ -15,7 +15,7 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
 
                 <select name='prname' {...register('prname', {required: true})}> 
                   <option disabled selected value="Canada">Select Province</option>
-                  <option value="Canada">Unknown</option>
+                  <option value="Canada">Canada</option>
                   <option value="Ontario">Ontario</option>
                   <option value="British Columbia">British Columbia</option>
                   <option value="Quebec">Quebec</option>
