@@ -8,13 +8,11 @@ import Table from './components/Table/Table'
 import './components/ButtonStyles/add-button.css'
 import Chart from './components/Chart/Chart';
 
-
 const App = () => {
   const [editMenuIsOpen, setEditMenuIsOpen] = useState(false)
   const [menuIsOpen, setMenuIsOpen] = useState(false) //For the form component
   const [records, setRecords] = useState([])
   const [recordToEdit, setRecordToEdit] = useState([]) //For the edit menus
-  const [februaryData, setFebruaryData] = useState({})
 
   //Fetching all the records from the API at the beginning
   useEffect(() => { 
@@ -186,46 +184,8 @@ const App = () => {
     })
   }
 
-  const doSomething = (month, pruid) => {
-    fetch(`/api/records/?pruid=${pruid}&month=${month}`).then(res => {
-      if(res.ok) {
-        return res.json()
-      }
-    }).then(jsonResponse => {
-      februaryData.numtotal = jsonResponse.numtotal
-      februaryData.numdeaths = jsonResponse.numdeaths
-      setFebruaryData(februaryData)
-      console.log(februaryData)
-    })
-  } 
-
-  const graphData = {
-    labels: ['January', 'February', 'March',
-             'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'],
-    datasets: [
-      {
-        label: 'Cases',
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(0,0,0,1)',
-        borderWidth: 2,
-        data: [65, 59, 80, 81, 56, 88, 21, 80, 60, 60, 70]
-      }, 
-      {
-        label: 'Deaths',
-        fill: false,
-        lineTension: 0.5,
-        backgroundColor: 'rgba(75,192,192,1)',
-        borderColor: 'rgba(0,0,200,1)',
-        borderWidth: 2,
-        data: [10, 20, 30, 40, 50, 88, 21, 80, 60, 60, 70, 50]
-      }
-    ]
-  }
-
-const items = [
-  <div className='container'>
+  const items = [
+    <div className='container'>
       
       <h1>Covid Records</h1>
       <button className='plus' onClick = {() => setMenuIsOpen(!menuIsOpen)}/>
@@ -243,7 +203,7 @@ const items = [
           getData={getData} 
           recordToEdit={recordToEdit}/>}
     </div> ,
-  <Chart graphData={graphData}/>,
+  <Chart />,
   <div className='container'>
       <h1>About</h1>
   </div>

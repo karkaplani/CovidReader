@@ -16,18 +16,37 @@ const Records = require('../../models/Record')
 router.get('/', (req, res) => {
 
   let pruid = req.query.pruid
-  let month = req.query.month
 
-  if(pruid !== undefined && month !== undefined){
-    Records.find({'pruid': pruid, 'month': parseInt(month)})
-      .then(records => {
-        let lastRecord = records[records.length - 1]
-        res.json(lastRecord)
-      })
-  }
+  if(pruid !== undefined){
 
-  Records.find()
+    let arrayToReturn = []
+
+    for(let i = 1; i <= 12; i++) {
+      Records.find({'pruid': pruid, 'month': i})
+        .then(records => {
+          let lastRecord = records[records.length -1]
+          if(lastRecord === undefined) {
+            const emptyObjectToReturn = {
+              month: i,
+              numtotal: 0,
+              numdeaths: 0
+            }
+            // arrayToReturn.push(emptyObjectToReturn)
+            lastRecord = emptyObjectToReturn
+          }
+          arrayToReturn.push(lastRecord)
+          if(arrayToReturn.length == 12) {
+            arrayToReturn.sort((a,b) => {
+              return a.month - b.month
+            })
+            res.json(arrayToReturn)
+          }
+        })
+    }
+  } else {
+    Records.find()
     .then(records => res.json(records))
+  }
 })
 
 /**
