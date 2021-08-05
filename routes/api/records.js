@@ -31,7 +31,6 @@ router.get('/', (req, res) => {
               numtotal: 0,
               numdeaths: 0
             }
-            // arrayToReturn.push(emptyObjectToReturn)
             lastRecord = emptyObjectToReturn
           }
           arrayToReturn.push(lastRecord)

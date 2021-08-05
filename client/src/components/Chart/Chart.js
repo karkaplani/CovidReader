@@ -16,10 +16,10 @@ import saskatchewan from '../../img/saskatchewan.png'
 import yukon from '../../img/yukon.png'
 import newfoundland from '../../img/newfoundland.png'
 import travellers from '../../img/travellers.jpg'
+import ReactTooltip from 'react-tooltip';
 
 const Chart = () => {
     const [chartData, setChartData] = useState({})
-    const [province, setProvince] = useState(1)
 
     const chart = (province) => {
 
@@ -82,27 +82,28 @@ const Chart = () => {
     return (
         <div className='container'>
             <h1>Charts</h1>
+            <ReactTooltip className='flag-tooltip'/>
             <Line
                 data={chartData}
                 height={60}
                 width={200}
                 options={{}}
             />
-            <button class="flag" style={{backgroundImage: `url(${canada})`}} onClick={() => setProvinceDataToDisplay(1)}></button>
-            <button class="flag" style={{backgroundImage: `url(${ontario})`}} onClick={() => setProvinceDataToDisplay(35)}></button>
-            <button class="flag" style={{backgroundImage: `url(${alberta})`}} onClick={() => setProvinceDataToDisplay(48)}></button>
-            <button class="flag" style={{backgroundImage: `url(${bc})`}} onClick={() => setProvinceDataToDisplay(59)}></button>
-            <button class="flag" style={{backgroundImage: `url(${manitoba})`}} onClick={() => setProvinceDataToDisplay(46)}></button>
-            <button class="flag" style={{backgroundImage: `url(${new_brunswick})`}} onClick={() => setProvinceDataToDisplay(13)}></button>
-            <button class="flag" style={{backgroundImage: `url(${northwest})`}} onClick={() => setProvinceDataToDisplay(61)}></button>
-            <button class="flag" style={{backgroundImage: `url(${nova_scotia})`}} onClick={() => setProvinceDataToDisplay(12)}></button>
-            <button class="flag" style={{backgroundImage: `url(${nunavut})`}} onClick={() => setProvinceDataToDisplay(62)}></button>
-            <button class="flag" style={{backgroundImage: `url(${prince_edward_island})`}} onClick={() => setProvinceDataToDisplay(11)}></button>
-            <button class="flag" style={{backgroundImage: `url(${quebec})`}} onClick={() => setProvinceDataToDisplay(24)}></button>
-            <button class="flag" style={{backgroundImage: `url(${saskatchewan})`}} onClick={() => setProvinceDataToDisplay(47)}></button>
-            <button class="flag" style={{backgroundImage: `url(${yukon})`}} onClick={() => setProvinceDataToDisplay(60)}></button>
-            <button class="flag" style={{backgroundImage: `url(${newfoundland})`}} onClick={() => setProvinceDataToDisplay(10)}></button>
-            <button class="flag" style={{backgroundImage: `url(${travellers})`}} onClick={() => setProvinceDataToDisplay(99)}></button>
+            <button class="flag" data-tip="Canada" style={{backgroundImage: `url(${canada})`}} onClick={() => setProvinceDataToDisplay(1)}></button>
+            <button class="flag" data-tip="Ontario" style={{backgroundImage: `url(${ontario})`}} onClick={() => setProvinceDataToDisplay(35)}></button>
+            <button class="flag" data-tip="Alberta" style={{backgroundImage: `url(${alberta})`}} onClick={() => setProvinceDataToDisplay(48)}></button>
+            <button class="flag" data-tip="British Columbia" style={{backgroundImage: `url(${bc})`}} onClick={() => setProvinceDataToDisplay(59)}></button>
+            <button class="flag" data-tip="Manitoba" style={{backgroundImage: `url(${manitoba})`}} onClick={() => setProvinceDataToDisplay(46)}></button>
+            <button class="flag" data-tip="New Brunswick" style={{backgroundImage: `url(${new_brunswick})`}} onClick={() => setProvinceDataToDisplay(13)}></button>
+            <button class="flag" data-tip="Northwest Territories" style={{backgroundImage: `url(${northwest})`}} onClick={() => setProvinceDataToDisplay(61)}></button>
+            <button class="flag" data-tip="Nova Scotia" style={{backgroundImage: `url(${nova_scotia})`}} onClick={() => setProvinceDataToDisplay(12)}></button>
+            <button class="flag" data-tip="Nunavut" style={{backgroundImage: `url(${nunavut})`}} onClick={() => setProvinceDataToDisplay(62)}></button>
+            <button class="flag" data-tip="Prince Edward Island" style={{backgroundImage: `url(${prince_edward_island})`}} onClick={() => setProvinceDataToDisplay(11)}></button>
+            <button class="flag" data-tip="Quebec" style={{backgroundImage: `url(${quebec})`}} onClick={() => setProvinceDataToDisplay(24)}></button>
+            <button class="flag" data-tip="Saskatchewan" style={{backgroundImage: `url(${saskatchewan})`}} onClick={() => setProvinceDataToDisplay(47)}></button>
+            <button class="flag" data-tip="Yukon" style={{backgroundImage: `url(${yukon})`}} onClick={() => setProvinceDataToDisplay(60)}></button>
+            <button class="flag" data-tip="Newfoundland" style={{backgroundImage: `url(${newfoundland})`}} onClick={() => setProvinceDataToDisplay(10)}></button>
+            <button class="flag" data-tip="Repatriated Travellers" style={{backgroundImage: `url(${travellers})`}} onClick={() => setProvinceDataToDisplay(99)}></button>
 
         </div>
     )

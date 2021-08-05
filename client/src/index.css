@@ -259,10 +259,13 @@ select {
   border: none;
 }
 
-/*Reduce opacity on flag class hover*/
 .flag:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+.flag-tooltip {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 
