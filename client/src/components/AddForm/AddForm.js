@@ -28,6 +28,7 @@ const AddForm = ({menuIsOpen, setMenuIsOpen, addRow}) => {
                   <option value="Northwest Territories">Northwest Territories</option>
                   <option value="Nunavut">Nunavut</option>
                   <option value="Yukon">Yukon</option>
+                  <option value="Newfoundland and Labrador">Newfoundland</option>
                   <option value="Repatriated travellers">Repatriated travellers</option>
                 </select> <br />
 

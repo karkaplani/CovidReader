@@ -140,7 +140,7 @@ footer {
 
 #edit-modal {
   width: 800px;
-  height: 150px;
+  height: 200px;
 }
 
 
@@ -250,10 +250,10 @@ select {
 }
 
 .flag {
-  width: 40px;
-  height: 24px;
+  width: 35px;
+  height: 21px;
   margin-top: 35px;
-  margin-left: 26px;
+  margin-left: 27px;
   background-position: center;
   background-size: cover;
   border: none;

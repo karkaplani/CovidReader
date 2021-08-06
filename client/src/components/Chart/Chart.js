@@ -1,51 +1,52 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Line } from 'react-chartjs-2'
-import alberta from '../../img/alberta.png'
-import bc from '../../img/bc.png'
-import canada from '../../img/canada.png'
-import manitoba from '../../img/manitoba.png'
-import new_brunswick from '../../img/new_brunswick.png'
-import northwest from '../../img/northwest.png'
-import nova_scotia from '../../img/nova_scotia.png'
-import nunavut from '../../img/nunavut.png'
-import ontario from '../../img/ontario.jpg'
-import prince_edward_island from '../../img/prince_edward_island.png'
-import quebec from '../../img/quebec.png'
-import saskatchewan from '../../img/saskatchewan.png'
-import yukon from '../../img/yukon.png'
-import newfoundland from '../../img/newfoundland.png'
-import travellers from '../../img/travellers.jpg'
 import ReactTooltip from 'react-tooltip';
+import provinces from './Provinces'
 
+/**
+ * @author Apo Ilgun
+ * The chart component as the second page of the application.
+ * Gets rendered at the App component, and returns a container
+ * with a dynamic chart and several buttons to manipulate the
+ * chart data. Uses chartjs and tooltip libraries as well as
+ * the helper module for the province data.
+ */
 const Chart = () => {
-    const [chartData, setChartData] = useState({})
+    const [chartData, setChartData] = useState({}) //The data to be displayed on the chart
+    const [buttons, setButtons] = useState([]) //Buttons to change the chart data. Render once at the beginning.
 
+    /**
+     * @author Apo Ilgun
+     * The chart function sets the chart data dynamically when 
+     * called on click of the flag buttons. Uses province id 
+     * as the parameter to make a fetch request to get the 
+     * appropriate data from the backend.
+     */
     const chart = (province) => {
 
-        let numtotals = []
+        //Actual data used in the graph
+        let numtotals = [] 
         let numdeaths = []
 
+        //Fetch request gets the last record from each month of the province.
         fetch(`/api/records?pruid=${province}`).then(res => {
             if(res.ok) {
               return res.json()
             }
           }).then(jsonResponse => {
-
+              //If not sorted in ascending order, month data are displayed randomly
               jsonResponse.sort((a,b) => {
                 return a.month - b.month
               })
-
-              console.log(jsonResponse)
-
               jsonResponse.forEach(record => {
                 numtotals.push(record.numtotal)
                 numdeaths.push(record.numdeaths)
               })
               setChartData(
                 {
-                    labels: ['January', 'February', 'March',
-                             'April', 'May', 'Jun', 'July', 'August', 'September', 'October', 'November', 'December'],
+                    labels: ['January', 'February', 'March', 'April', 'May', 'Jun', 
+                             'July', 'August', 'September', 'October', 'November', 'December'],
                     datasets: [
                       {
                         label: 'Cases',
@@ -68,43 +69,32 @@ const Chart = () => {
                     ],
                 }
             )
-          })
+          }).catch(err => console.err('Last records could not get: ' + err))
     }
-
-    useEffect((province) => {
-        chart(1)
+    //This hook is called once at the beginning to set the default data for the states.
+    useEffect(() => {
+      chart(1) //Default chart to display is Canada
+      //By using the provinces data, 15 buttons are displayed with 
+      //same properties. Also a tooltip for each button is rendered here.
+      setButtons(provinces.map((province) => {
+        return <> 
+        <ReactTooltip className='flag-tooltip'/>
+        <button class='flag' 
+                data-tip={province.name}
+                style={{backgroundImage: `url(${province.backgroundImage})`}} 
+                onClick={() => chart(province.id)}></button> </>
+      }))
     }, [])
-
-    const setProvinceDataToDisplay = (pruid) => {
-        chart(pruid)
-    }
-
     return (
         <div className='container'>
             <h1>Charts</h1>
-            <ReactTooltip className='flag-tooltip'/>
             <Line
                 data={chartData}
                 height={60}
                 width={200}
                 options={{}}
             />
-            <button class="flag" data-tip="Canada" style={{backgroundImage: `url(${canada})`}} onClick={() => setProvinceDataToDisplay(1)}></button>
-            <button class="flag" data-tip="Ontario" style={{backgroundImage: `url(${ontario})`}} onClick={() => setProvinceDataToDisplay(35)}></button>
-            <button class="flag" data-tip="Alberta" style={{backgroundImage: `url(${alberta})`}} onClick={() => setProvinceDataToDisplay(48)}></button>
-            <button class="flag" data-tip="British Columbia" style={{backgroundImage: `url(${bc})`}} onClick={() => setProvinceDataToDisplay(59)}></button>
-            <button class="flag" data-tip="Manitoba" style={{backgroundImage: `url(${manitoba})`}} onClick={() => setProvinceDataToDisplay(46)}></button>
-            <button class="flag" data-tip="New Brunswick" style={{backgroundImage: `url(${new_brunswick})`}} onClick={() => setProvinceDataToDisplay(13)}></button>
-            <button class="flag" data-tip="Northwest Territories" style={{backgroundImage: `url(${northwest})`}} onClick={() => setProvinceDataToDisplay(61)}></button>
-            <button class="flag" data-tip="Nova Scotia" style={{backgroundImage: `url(${nova_scotia})`}} onClick={() => setProvinceDataToDisplay(12)}></button>
-            <button class="flag" data-tip="Nunavut" style={{backgroundImage: `url(${nunavut})`}} onClick={() => setProvinceDataToDisplay(62)}></button>
-            <button class="flag" data-tip="Prince Edward Island" style={{backgroundImage: `url(${prince_edward_island})`}} onClick={() => setProvinceDataToDisplay(11)}></button>
-            <button class="flag" data-tip="Quebec" style={{backgroundImage: `url(${quebec})`}} onClick={() => setProvinceDataToDisplay(24)}></button>
-            <button class="flag" data-tip="Saskatchewan" style={{backgroundImage: `url(${saskatchewan})`}} onClick={() => setProvinceDataToDisplay(47)}></button>
-            <button class="flag" data-tip="Yukon" style={{backgroundImage: `url(${yukon})`}} onClick={() => setProvinceDataToDisplay(60)}></button>
-            <button class="flag" data-tip="Newfoundland" style={{backgroundImage: `url(${newfoundland})`}} onClick={() => setProvinceDataToDisplay(10)}></button>
-            <button class="flag" data-tip="Repatriated Travellers" style={{backgroundImage: `url(${travellers})`}} onClick={() => setProvinceDataToDisplay(99)}></button>
-
+            {buttons}
         </div>
     )
 }

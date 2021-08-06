@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     for(let i = 1; i <= 12; i++) {
       Records.find({'pruid': pruid, 'month': i})
         .then(records => {
-          let lastRecord = records[records.length -1]
+          let lastRecord = records[records.length-1]
           if(lastRecord === undefined) {
             const emptyObjectToReturn = {
               month: i,
@@ -35,9 +35,7 @@ router.get('/', (req, res) => {
           }
           arrayToReturn.push(lastRecord)
           if(arrayToReturn.length == 12) {
-            arrayToReturn.sort((a,b) => {
-              return a.month - b.month
-            })
+            console.log(arrayToReturn)
             res.json(arrayToReturn)
           }
         })
